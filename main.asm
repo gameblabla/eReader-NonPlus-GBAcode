@@ -1,12 +1,5 @@
     .area CODE (ABS)
- 
- 
-    ; RST 8
     ERAPI_Exit                     = 0x00
-
-    ;--------------;
-    ; *** CODE *** ;
-    ;--------------;
 
     .globl data
     .globl loader
@@ -52,9 +45,16 @@ data:
 
 .org 0x300
 loader:
+	; ARM-only loader (see arm.asm)
+	; mov r0,#0x80000000
+	; mov r1,#0x40000000
+	; strb r1,[r1,#0x208]
+	; str r0,[r1,#0x0DC]
+	; mov r15,#0x20000000
    .incbin "loaderarm.bin"
 
 .org 0x364
+	; Compiled Thumb game binary here
 main:
 	.incbin "game.bin"
 
